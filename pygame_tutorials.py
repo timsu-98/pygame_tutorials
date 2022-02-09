@@ -1,14 +1,17 @@
-from turtle import screensize
 from numpy import blackman, place
 import pygame
 import sys
 import colors
+from Player import Snail
 
 def main():
     pygame.init()
 
     if pygame.get_init():
         print("\033[1;32mPygame is correctly initialized.\033[0m")
+
+    FPS = 60
+    frame_per_sec = pygame.time.Clock()
 
     logo = pygame.image.load("./media/logo.png")
 
@@ -18,10 +21,14 @@ def main():
 
     screen = pygame.display.set_mode((640, 360))
     screen.fill(colors.WHITE)
+    print(type(screen))
 
     running = True
 
     draw_point = [320, 180]
+
+    snail = Snail()
+
 
     # Game loop
     while running:
@@ -44,7 +51,11 @@ def main():
                 print("Key released.")
                 if event.key == pygame.K_SPACE:
                     print("Space bar released.")
+        snail.update()
+        snail.draw(screen)
+
         pygame.display.update()
+        frame_per_sec.tick(FPS)
 
         
     
